@@ -1,0 +1,15 @@
+export const skills = [
+  'Python',
+  'Java',
+  'Go',
+  'TypeScript',
+  'Spring Boot',
+  'FastAPI',
+  'Flask',
+  'React',
+  'MySQL',
+  'PostgreSQL',
+  'Docker',
+  'AWS',
+  'Git',
+]
