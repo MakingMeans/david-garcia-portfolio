@@ -1,75 +1,89 @@
-﻿import { SocialLink } from '../components/common/social-link'
-import { BentoCard } from '../components/ui/bento-card'
-import { Cpu, Github, Layers3, Linkedin, Mail, Network, Sparkles } from 'lucide-react'
+import { Github, Linkedin, Mail } from 'lucide-react'
+import { Container } from '../components/layout/container'
+import { Reveal } from '../components/common/reveal'
+import { Highlight } from '../components/common/highlight'
 import { asset, mailto, site } from '../data/site'
+
+const socials = [
+  { href: site.github, label: 'GitHub', icon: Github, external: true },
+  { href: site.linkedin, label: 'LinkedIn', icon: Linkedin, external: true },
+  { href: mailto, label: 'Email', icon: Mail, external: false },
+]
 
 function Hero() {
   return (
-    <section id="hero" className="grid min-h-[calc(100vh-96px)] items-center gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-      <div className="space-y-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300">
-          <Sparkles className="h-4 w-4" />
-          Backend Engineer · Systems Thinker
-        </div>
+    // A band, not a screen: it sits flush against the top of the page, spans the
+    // full width and takes only the height its content needs.
+    <section id="hero" className="relative isolate overflow-hidden border-b border-slate-800/70 bg-[#050B18]">
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_50%_0%,rgba(59,130,246,0.13),transparent_72%)]"
+      />
 
-        <div className="space-y-4">
-          <h1 className="text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Building reliable systems with clarity and intent.
-          </h1>
-          <p className="max-w-2xl text-xl leading-8 text-slate-300 sm:text-2xl">
-            I work at the intersection of backend engineering, software architecture and distributed thinking.
+      <Container className="flex flex-col items-center gap-7 py-20 text-center sm:gap-8 sm:py-24">
+        <Reveal>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-blue-400 sm:text-sm sm:tracking-[0.35em]">
+            Hello, my name is
           </p>
-        </div>
+        </Reveal>
 
-        <p className="max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
-          I’m a Systems Engineering student focused on APIs, scalable services, architectural trade-offs and problem-solving under constraints.
-        </p>
+        <Reveal delay={0.08}>
+          <div className="space-y-3">
+            <h1 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl">
+              David García.
+            </h1>
+            <p className="text-2xl font-semibold tracking-tight text-balance text-slate-400 sm:text-4xl lg:text-5xl">
+              I build reliable backend systems.
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <a
-            href={mailto}
-            className="inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-medium text-white transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-          >
-            Get in touch
-          </a>
-          <a
-            href={asset('cv.pdf')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/80 px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-blue-400/30 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-          >
-            Download CV
-          </a>
-        </div>
+        <Reveal delay={0.16}>
+          <p className="mx-auto max-w-2xl text-base leading-7 text-slate-400 sm:leading-8 sm:text-lg">
+            <Highlight>Systems Engineering</Highlight> student at Universidad El Bosque, focused on{' '}
+            <Highlight>REST APIs</Highlight>, <Highlight>relational databases</Highlight> and{' '}
+            <Highlight>full-stack applications</Highlight>, with a{' '}
+            <Highlight>competitive programming</Highlight> habit that keeps the problem solving
+            sharp.
+          </p>
+        </Reveal>
 
-        <div className="grid gap-3 sm:grid-cols-3">
-          <SocialLink href={mailto} label="Email" external={false} icon={<Mail className="h-4 w-4" />} />
-          <SocialLink href={site.github} label="GitHub" icon={<Github className="h-4 w-4" />} />
-          <SocialLink href={site.linkedin} label="LinkedIn" icon={<Linkedin className="h-4 w-4" />} />
-        </div>
-      </div>
+        <Reveal delay={0.24}>
+          <div className="flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4">
+            <a
+              href={mailto}
+              className="inline-flex w-full items-center justify-center rounded-full bg-blue-500 px-7 py-3 text-sm font-medium text-white transition hover:bg-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
+            >
+              Get in touch
+            </a>
+            <a
+              href={asset('cv.pdf')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center rounded-full border border-slate-700 bg-slate-900/60 px-7 py-3 text-sm font-medium text-slate-200 transition hover:border-blue-400/40 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 sm:w-auto"
+            >
+              Download CV
+            </a>
+          </div>
+        </Reveal>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <BentoCard
-          title="Backend Engineering"
-          description="Reliable services, clean contracts and performance-minded implementation."
-          detail="APIs · Services · Systems"
-          icon={<Cpu className="h-5 w-5" />}
-          className="sm:col-span-2"
-        />
-        <BentoCard
-          title="Software Architecture"
-          description="Designing boundaries, interfaces and evolution paths that scale with intent."
-          detail="Architecture · Maintainability"
-          icon={<Layers3 className="h-5 w-5" />}
-        />
-        <BentoCard
-          title="Distributed Systems"
-          description="Thinking in resilience, concurrency and operational clarity."
-          detail="Concurrency · Trade-offs"
-          icon={<Network className="h-5 w-5" />}
-        />
-      </div>
+        <Reveal delay={0.32}>
+          <div className="flex items-center gap-3">
+            {socials.map(({ href, label, icon: Icon, external }) => (
+              <a
+                key={label}
+                href={href}
+                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                aria-label={label}
+                title={label}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-800 bg-slate-950/80 text-slate-400 transition hover:-translate-y-0.5 hover:border-blue-400/40 hover:text-blue-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+              >
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+        </Reveal>
+      </Container>
     </section>
   )
 }

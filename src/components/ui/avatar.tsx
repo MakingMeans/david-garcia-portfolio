@@ -7,9 +7,19 @@ interface AvatarProps extends ImgHTMLAttributes<HTMLImageElement> {
 
 export function Avatar({ className, alt, fallback = 'Profile image', ...props }: AvatarProps) {
   return (
-    <div className={cn('relative inline-flex overflow-hidden rounded-3xl border border-slate-700 bg-slate-950', className)}>
+    // `flex`, not `inline-flex`: an inline-level box sits on its parent's text
+    // baseline, which added half a line of leading above the portrait and made
+    // it hang below the column of copy beside it.
+    <div
+      className={cn(
+        'relative flex overflow-hidden rounded-3xl border border-slate-700 bg-slate-950',
+        className,
+      )}
+    >
       <img
-        className="h-full w-full object-cover transition duration-300 hover:scale-[1.02]"
+        className="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
         alt={alt ?? fallback}
         {...props}
       />

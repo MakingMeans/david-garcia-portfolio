@@ -1,8 +1,9 @@
 export const skills = [
   'Python',
   'Java',
-  'Go',
+  'C++',
   'TypeScript',
+  'PHP',
   'Spring Boot',
   'FastAPI',
   'Flask',
@@ -12,4 +13,5 @@ export const skills = [
   'Docker',
   'AWS',
   'Git',
+  'GitHub',
 ]

@@ -28,7 +28,7 @@ export interface FloatingDockItem {
 
 interface FloatingDockProps {
   items: FloatingDockItem[]
-  /** Which item is currently in view — matched against `href`. */
+  /** Which item is currently in view – matched against `href`. */
   activeHref?: string
   /** `hover` reveals the label on hover; `always` keeps every label visible. */
   labelMode?: 'hover' | 'always'
@@ -71,13 +71,17 @@ function FloatingDockDesktop({
   className?: string
 }) {
   const mouseX = useMotionValue(Infinity)
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null)
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-6 z-50 hidden justify-center px-4 md:flex">
       <motion.nav
         aria-label="Section navigation"
         onMouseMove={(event) => mouseX.set(event.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
+        onMouseLeave={() => {
+          mouseX.set(Infinity)
+          setHoveredHref(null)
+        }}
         className={cn(
           'pointer-events-auto flex h-20 items-end gap-4 rounded-2xl border border-slate-800/80 bg-slate-950/90 px-4 pb-8 shadow-2xl shadow-black/40 ring-1 ring-white/5 backdrop-blur-xl',
           className,
@@ -92,6 +96,9 @@ function FloatingDockDesktop({
               item={item}
               active={activeHref === item.href}
               labelMode={labelMode}
+              hovered={hoveredHref === item.href}
+              anyHovered={hoveredHref !== null}
+              onHoverChange={(isHovered) => setHoveredHref(isHovered ? item.href : null)}
             />
           </Fragment>
         ))}
@@ -105,14 +112,19 @@ function IconContainer({
   item,
   active,
   labelMode,
+  hovered,
+  anyHovered,
+  onHoverChange,
 }: {
   mouseX: MotionValue<number>
   item: FloatingDockItem
   active: boolean
   labelMode: 'hover' | 'always'
+  hovered: boolean
+  anyHovered: boolean
+  onHoverChange: (hovered: boolean) => void
 }) {
   const ref = useRef<HTMLAnchorElement>(null)
-  const [hovered, setHovered] = useState(false)
 
   const distance = useTransform(mouseX, (value) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 }
@@ -123,7 +135,9 @@ function IconContainer({
   const size = useSpring(useTransform(distance, [-150, 0, 150], [40, 72, 40]), spring)
   const iconSize = useSpring(useTransform(distance, [-150, 0, 150], [20, 34, 20]), spring)
 
-  const showLabel = labelMode === 'always' || hovered || active
+  // Labels are wider than the icons they sit under, so only ever show one
+  // unless every label is pinned on.
+  const showLabel = labelMode === 'always' || hovered || (active && !anyHovered)
 
   return (
     <a
@@ -132,10 +146,10 @@ function IconContainer({
       {...linkProps(item)}
       aria-label={item.title}
       aria-current={active ? 'true' : undefined}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      onMouseEnter={() => onHoverChange(true)}
+      onMouseLeave={() => onHoverChange(false)}
+      onFocus={() => onHoverChange(true)}
+      onBlur={() => onHoverChange(false)}
       className="relative rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
     >
       <motion.div
@@ -190,7 +204,7 @@ function FloatingDockMobile({
     <div className={cn('fixed bottom-5 right-5 z-50 md:hidden', className)}>
       <AnimatePresence>
         {open ? (
-          <motion.div className="absolute bottom-full right-0 mb-3 flex flex-col items-end gap-2">
+          <motion.div className="absolute bottom-full right-0 mb-3 flex max-h-[70svh] flex-col items-end gap-2 overflow-y-auto pr-0.5">
             {items.map((item, index) => (
               <motion.a
                 key={item.href}

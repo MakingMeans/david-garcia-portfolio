@@ -1,22 +1,22 @@
 export const focusAreas = [
   {
-    title: 'Backend Engineering',
-    description: 'Reliable APIs, service design and maintainable systems that stay clear under pressure.',
-    detail: 'APIs · Services · Performance',
+    title: 'Backend & REST APIs',
+    description: 'Service layers with clear contracts, built on Spring Boot, FastAPI and Flask.',
+    detail: 'APIs · Services · Java · Python',
   },
   {
-    title: 'Software Architecture',
-    description: 'Clear boundaries, strong abstractions and thoughtful evolution for long-lived products.',
-    detail: 'Design patterns · Scalability · Reliability',
+    title: 'Relational Databases',
+    description: 'Schema design, queries and reporting over MySQL and PostgreSQL.',
+    detail: 'MySQL · PostgreSQL · SQL',
   },
   {
-    title: 'Distributed Systems',
-    description: 'Thinking in resilience, consistency and operational clarity for complex environments.',
-    detail: 'Concurrency · Data flow · Trade-offs',
+    title: 'Full-Stack Web',
+    description: 'React and TypeScript front ends wired to the services behind them.',
+    detail: 'React · TypeScript · PHP',
   },
   {
     title: 'Competitive Programming',
-    description: 'A mindset rooted in precision, problem decomposition and elegant solutions under constraints.',
-    detail: 'Algorithms · Optimisation · Problem solving',
+    description: 'Problem decomposition and precise solutions under contest constraints.',
+    detail: 'Algorithms · Python · C++ · Java · ICPC',
   },
 ]

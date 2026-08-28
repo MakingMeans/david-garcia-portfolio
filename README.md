@@ -1,75 +1,63 @@
-# React + TypeScript + Vite
+# david-garcia-portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio of David Santiago García Preciado, built with React + TypeScript + Vite and
+deployed as a static site to GitHub Pages.
 
-Currently, two official plugins are available:
+**Live:** https://makingmeans.github.io/david-garcia-portfolio/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What's on the page
 
-## React Compiler
+A single scrolling page, navigated by a floating dock instead of a top bar:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Home** – introduction, links and CV download
+- **01 About** – background, the technologies I work with and my areas of focus
+- **02 Experience** – a timeline of studies, competitions and teaching
+- **03 Projects** – expandable cards with a rotating gallery per project
+- **04 Certificates** – certificates and badges, each linking to the original document
+- **05 Contact** – email and profiles
 
-## Expanding the ESLint configuration
+## Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React 19, TypeScript, Vite, Tailwind CSS 4, Motion, lucide-react. The floating dock, expandable
+cards and loaders are ports of [Aceternity UI](https://ui.aceternity.com) components, restyled for
+this site.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Development
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # type-check + production build into dist/
+npm run preview  # serve the production build
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Page content is data, not markup: every entry lives in `src/data/`, and the components in
+`src/sections/` only decide how it is laid out.
 
 ```
+src/
+  data/         site links, skills, focus areas, experience, projects, certificates
+  sections/     one file per numbered section
+  components/   layout/ (shell, container, section) · ui/ · common/
+  lib/          class helper and hooks
+public/         cv.pdf, profile.png, projects/<slug>/, certificates/
+```
+
+Files under `public/` are published with the site, so any document added there must be free of
+personal data such as ID numbers or salaries.
+
+## Deployment
+
+`.github/workflows/deploy.yml` builds and publishes to GitHub Pages on every push to `main`.
+It requires **Settings → Pages → Source: GitHub Actions**.
+
+The site is served from a repository sub-path, so `vite.config.ts` sets
+`base: '/david-garcia-portfolio/'` and everything in `public/` is referenced through the `asset()`
+helper in `src/data/site.ts`.
+
+## License
+
+MIT – see [LICENSE](LICENSE).

@@ -1,25 +1,34 @@
 import type { ReactNode } from 'react'
+import { Container } from './container'
+import { SectionHeading } from './section-heading'
+import { Reveal } from '../common/reveal'
+import { cn } from '../../lib/cn'
 
 interface SectionProps {
+  /** Anchor id – must match the dock's href for scroll-spy to light it up. */
   id: string
+  /** Two-digit marker; sections are read in order, so the number carries meaning. */
+  number: string
   title: string
-  subtitle?: string
+  description?: string
   children: ReactNode
+  className?: string
 }
 
-export function Section({ id, title, subtitle, children }: SectionProps) {
+/**
+ * Standard content section: full-bleed wrapper, contained column, numbered
+ * heading and a revealed body. Every section below the hero uses this, so
+ * spacing and heading rhythm stay identical across the page.
+ */
+export function Section({ id, number, title, description, children, className }: SectionProps) {
   return (
-    <section id={id} className="py-24 sm:py-28">
-      <div className="space-y-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-blue-400">{id}</p>
-            <h2 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">{title}</h2>
-          </div>
-          {subtitle ? <p className="max-w-2xl text-sm leading-6 text-slate-400">{subtitle}</p> : null}
-        </div>
+    <section id={id} className={cn('py-24', className)}>
+      <Container className="space-y-12">
+        <Reveal>
+          <SectionHeading number={number} title={title} description={description} />
+        </Reveal>
         {children}
-      </div>
+      </Container>
     </section>
   )
 }

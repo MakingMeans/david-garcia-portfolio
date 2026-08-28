@@ -1,36 +1,43 @@
-import { Card } from '../components/ui/card'
-import { SectionHeading } from '../components/layout/section-heading'
+import { ArrowUpRight } from 'lucide-react'
+import { Section } from '../components/layout/section'
+import { ExpandableCards, type ExpandableCardItem } from '../components/ui/expandable-card'
+import { Reveal } from '../components/common/reveal'
+import { projects } from '../data/projects'
+import { site } from '../data/site'
 
-const projects = [
-  {
-    title: 'API Services & Backend Systems',
-    description: 'Designing robust service layers for data-intensive applications with maintainable structure and clear contracts.',
-  },
-  {
-    title: 'Modern Web Apps',
-    description: 'Combining React, Vite and Tailwind to deliver polished interfaces that stay fast, accessible and easy to evolve.',
-  },
-]
+const cards: ExpandableCardItem[] = projects.map((project) => ({
+  title: project.title,
+  summary: project.summary,
+  content: project.content,
+  images: project.images,
+  tags: project.stack,
+  meta: project.period,
+  ctaText: project.demo ? 'Open demo' : 'View code',
+  ctaLink: project.demo ?? project.repo,
+}))
 
 function Projects() {
   return (
-    <section id="projects" className="py-24">
-      <div className="space-y-8">
-        <SectionHeading
-          number="03"
-          title="Selected Projects"
-          description="A portfolio of work that highlights backend strength and modern frontend delivery."
-        />
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project) => (
-            <Card key={project.title} className="space-y-3">
-              <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-              <p className="text-sm leading-7 text-slate-400">{project.description}</p>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
+    <Section
+      id="projects"
+      number="03"
+      title="Selected Projects"
+      description="Academic and personal work published on GitHub. Open a card for the full story."
+    >
+      <ExpandableCards items={cards} />
+
+      <Reveal>
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-blue-400 transition hover:text-blue-300"
+        >
+          See every repository on GitHub
+          <ArrowUpRight className="h-4 w-4" />
+        </a>
+      </Reveal>
+    </Section>
   )
 }
 

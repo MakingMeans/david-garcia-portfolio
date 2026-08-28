@@ -1,4 +1,5 @@
 import { PageShell } from './components/layout/page-shell'
+import { BootScreen } from './components/boot-screen'
 import { SiteDock } from './components/site-dock'
 import Hero from './sections/Hero'
 import About from './sections/About'
@@ -9,17 +10,20 @@ import Contact from './sections/Contact'
 
 function App() {
   return (
-    <PageShell>
-      <main className="space-y-20 pb-32">
-        <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Certificates />
-        <Contact />
-      </main>
-      <SiteDock />
-    </PageShell>
+    <>
+      <BootScreen />
+      <PageShell>
+        <main>
+          <Hero />
+          <About />
+          <Experience />
+          <Projects />
+          <Certificates />
+          <Contact />
+        </main>
+        <SiteDock />
+      </PageShell>
+    </>
   )
 }
 
