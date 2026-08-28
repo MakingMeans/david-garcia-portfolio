@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local scratch / vendored tarballs
+aceternity-ui-*.tgz
+package_index.js
+/package/
