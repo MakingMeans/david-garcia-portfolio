@@ -32,6 +32,7 @@ export const experience: ExperienceItem[] = [
     description:
       'Regular contestant in national and internal programming competitions, training in algorithms, data structures and problem solving under time pressure.',
     highlights: [
+      '33rd place · ICPC Colombia 2026, XL Maratón Nacional ACIS/REDIS',
       '2nd place · CCPL 2026-R4, Universidad Católica',
       '1st place · 4th Internal Programming Marathon 2025, Universidad El Bosque',
       '2nd place · CCPL 2025-R4, Universidad Católica',

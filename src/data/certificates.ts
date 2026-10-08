@@ -25,12 +25,27 @@ export interface Certificate {
  */
 export const certificates: Certificate[] = [
   {
+    title: '33rd place · ICPC Colombia 2026, XL Maratón Nacional ACIS/REDIS',
+    issuers: ['ICPC Foundation', 'ACIS/REDIS'],
+    year: '2026',
+    image: asset('certificates/icpc-colombia-2026.webp'),
+    url: asset('certificates/icpc-colombia-2026.pdf'),
+  },
+  {
     title: 'Google Cloud Computing Foundations Certificate',
     issuers: ['Google', 'Credly'],
     year: '2026',
     image: asset('certificates/google-cloud-foundations.png'),
     url: 'https://www.credly.com/badges/b48161cb-ef72-4ea1-95d1-b44c15cd62f4/public_url',
     linkLabel: 'Verify on Credly',
+  },
+  {
+    title: 'EF SET English Certificate · C2 Proficient (71/100)',
+    issuers: ['EF SET'],
+    year: '2025',
+    image: asset('certificates/ef-set-english-2025.webp'),
+    url: 'https://cert.efset.org/xACaaW',
+    linkLabel: 'Verify on EF SET',
   },
   {
     title: 'Peer Tutor, Desarrollo de Sistemas de Información II',

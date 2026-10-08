@@ -30,10 +30,10 @@ function Hero() {
         <Reveal delay={0.08}>
           <div className="space-y-3">
             <h1 className="text-4xl font-semibold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl">
-              David García.
+              David García
             </h1>
             <p className="text-2xl font-semibold tracking-tight text-balance text-slate-400 sm:text-4xl lg:text-5xl">
-              I build reliable backend systems.
+              I build reliable backend systems
             </p>
           </div>
         </Reveal>
