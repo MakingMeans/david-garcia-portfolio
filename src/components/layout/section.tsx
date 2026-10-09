@@ -22,8 +22,8 @@ interface SectionProps {
  */
 export function Section({ id, number, title, description, children, className }: SectionProps) {
   return (
-    <section id={id} className={cn('py-24', className)}>
-      <Container className="space-y-12">
+    <section id={id} className={cn('py-20', className)}>
+      <Container className="space-y-10">
         <Reveal>
           <SectionHeading number={number} title={title} description={description} />
         </Reveal>

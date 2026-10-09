@@ -157,8 +157,8 @@ function IconContainer({
         className={cn(
           'relative flex aspect-square items-center justify-center rounded-full border transition-colors duration-200',
           active
-            ? 'border-blue-400/50 bg-blue-500/15 text-blue-200'
-            : 'border-slate-800 bg-slate-900 text-slate-300 hover:border-blue-400/40 hover:text-blue-200',
+            ? 'border-blue-400/40 bg-blue-500/15 text-blue-200'
+            : 'border-transparent bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-white',
         )}
       >
         <motion.div
@@ -177,7 +177,7 @@ function IconContainer({
             exit={{ opacity: 0, y: -4, x: '-50%' }}
             transition={{ duration: 0.15 }}
             className={cn(
-              'pointer-events-none absolute -bottom-6 left-1/2 whitespace-pre text-[0.625rem] font-semibold uppercase tracking-[0.18em]',
+              'pointer-events-none absolute -bottom-6 left-1/2 whitespace-pre text-[0.7rem] font-medium',
               active ? 'text-blue-300' : 'text-slate-400',
             )}
           >
@@ -216,7 +216,7 @@ function FloatingDockMobile({
                 exit={{ opacity: 0, y: 10, transition: { delay: index * 0.03 } }}
                 transition={{ delay: (items.length - 1 - index) * 0.03 }}
                 className={cn(
-                  'flex items-center gap-3 rounded-full border py-2 pl-3 pr-4 text-xs font-semibold uppercase tracking-[0.18em] shadow-lg shadow-black/30 backdrop-blur-xl',
+                  'flex items-center gap-3 rounded-full border py-2 pl-3 pr-4 text-sm font-medium shadow-lg shadow-black/30 backdrop-blur-xl',
                   activeHref === item.href
                     ? 'border-blue-400/50 bg-blue-500/15 text-blue-200'
                     : 'border-slate-800 bg-slate-950/90 text-slate-300',

@@ -5,12 +5,17 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'accent'
 }
 
+/**
+ * Static surface. Told apart from the page by a lighter fill rather than an
+ * outline, and it does not lift on hover – nothing here is clickable, so it
+ * should not pretend to be.
+ */
 export function Card({ className, variant = 'default', ...props }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-3xl border border-slate-800/70 bg-slate-950/80 p-6 shadow-[0_24px_60px_-32px_rgba(0,0,0,0.65)] backdrop-blur-xl transition-transform hover:-translate-y-1',
-        variant === 'accent' && 'border-blue-500/30 bg-blue-500/10',
+        'rounded-2xl bg-slate-900/50 p-6',
+        variant === 'accent' && 'bg-blue-500/[0.08]',
         className,
       )}
       {...props}

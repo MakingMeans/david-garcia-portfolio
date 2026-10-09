@@ -1,32 +1,53 @@
-import { asset } from './site'
-
 export interface Project {
+  /**
+   * Folder name for screenshots: every image in src/assets/projects/<slug>/
+   * shows up on the card on its own. Lowercase, hyphenated.
+   */
+  slug: string
   title: string
   /** One line, shown on the collapsed card. Keep it under ~60 characters. */
   summary: string
   /** Long form, shown once the card expands. */
   content: string
-  /** Chips on the card; the first three show collapsed, all of them expanded. */
+  /** Chips on the card; the first three show collapsed (six if featured), all of them expanded. */
   stack: string[]
   repo: string
   /** When the project ran. Omit for undated work. */
   period?: string
   /** Live deployment. When set, the card's button links here instead of the repo. */
   demo?: string
-  /** Every image in public/projects/<folder>; they auto-rotate on the card. */
-  images: string[]
+  /** Spans the full width at the top of the grid. Mark one project at most. */
+  featured?: boolean
 }
 
-/** Helper so a project's images are declared as just a folder plus filenames. */
-const gallery = (folder: string, files: string[] = ['01.svg', '02.svg', '03.svg']) =>
-  files.map((file) => asset(`projects/${folder}/${file}`))
+// Every image under src/assets/projects/<slug>/, resolved by Vite at build
+// time – so adding a screenshot is just dropping the file in the folder.
+const screenshots = import.meta.glob<string>(
+  '../assets/projects/*/*.{png,jpg,jpeg,webp,gif,svg}',
+  { eager: true, import: 'default' },
+)
 
 /**
- * Ongoing projects first (newest start date), then finished ones by end date.
- * Adding a project = one object here plus a folder under public/projects.
+ * A project's screenshots in file-name order (01.png, 02.png … 10.png). Empty
+ * when the folder is missing, and the card then shows a cover built from the
+ * repo and the stack instead.
+ */
+export function screenshotsFor(slug: string): string[] {
+  return Object.keys(screenshots)
+    .filter((path) => path.split('/').at(-2) === slug)
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map((path) => screenshots[path])
+}
+
+/**
+ * Ongoing projects first (newest start date), then finished ones by end date;
+ * the featured one is lifted to the top wherever it sits here.
+ * Adding a project = one object here. Screenshots are optional: create
+ * src/assets/projects/<slug>/ and drop the images in.
  */
 export const projects: Project[] = [
   {
+    slug: 'icpc-algorithms',
     title: 'ICPC Notebook',
     summary: 'Contest-ready algorithms and data structures',
     content:
@@ -34,9 +55,9 @@ export const projects: Project[] = [
     stack: ['C++', 'Python', 'Algorithms', 'Data structures'],
     repo: 'https://github.com/MakingMeans/competitive-programming-icpc-algorithms',
     period: 'Jul 2026 – Present',
-    images: gallery('icpc-algorithms'),
   },
   {
+    slug: 'connect-four',
     title: 'Connect Four – React, FastAPI & AI',
     summary: 'Full-stack Connect Four with an AI opponent',
     content:
@@ -44,9 +65,9 @@ export const projects: Project[] = [
     stack: ['React', 'TypeScript', 'FastAPI', 'Python'],
     repo: 'https://github.com/MakingMeans/ConnectFour-React-FastAPI-AI',
     period: 'Mar 2026 – Present',
-    images: gallery('connect-four'),
   },
   {
+    slug: 'judges-ac-record',
     title: 'Judges AC Record',
     summary: 'Accepted solutions from VJudge and other online judges',
     content:
@@ -54,9 +75,9 @@ export const projects: Project[] = [
     stack: ['Java', 'C++', 'Python', 'Problem solving'],
     repo: 'https://github.com/MakingMeans/competitive-programming-judges-ac-record',
     period: 'Nov 2025 – Present',
-    images: gallery('judges-ac-record'),
   },
   {
+    slug: 'tienda-generica',
     title: 'Tienda Genérica – Spring Boot Microservices',
     summary: 'Retail transactions platform on a microservices architecture',
     content:
@@ -64,9 +85,10 @@ export const projects: Project[] = [
     stack: ['Java', 'Spring Boot', 'Spring Cloud', 'JWT', 'React', 'MySQL', 'Docker'],
     repo: 'https://github.com/MakingMeans/TiendaGenerica-Microservicios',
     period: 'Feb – May 2026',
-    images: gallery('tienda-generica'),
+    featured: true,
   },
   {
+    slug: 'sophyfarm',
     title: 'SophyFarm – Batch Processing',
     summary: 'Automated validation and loading of bulk inventory data',
     content:
@@ -74,9 +96,9 @@ export const projects: Project[] = [
     stack: ['PHP', 'MySQL', 'Batch processing', 'PHPMailer', 'CallMeBot API'],
     repo: 'https://github.com/MakingMeans/sophyfarm-procesos-batch',
     period: 'Oct – Dec 2025',
-    images: gallery('sophyfarm'),
   },
   {
+    slug: 'ipv4-calculator',
     title: 'IPv4 Network Calculator',
     summary: 'Subnetting calculator with binary visualisation',
     content:
@@ -84,9 +106,9 @@ export const projects: Project[] = [
     stack: ['JavaScript', 'HTML', 'CSS', 'Networking', 'Linux'],
     repo: 'https://github.com/MakingMeans/IPv4-Calculadora-RedesI',
     period: 'Oct – Nov 2025',
-    images: gallery('ipv4-calculator'),
   },
   {
+    slug: 'payroll',
     title: 'Nominapp – Payroll Management',
     summary: 'Payroll system with auditing over PostgreSQL',
     content:
@@ -94,6 +116,5 @@ export const projects: Project[] = [
     stack: ['Python', 'Flask', 'PostgreSQL', 'Auditing'],
     repo: 'https://github.com/MakingMeans/DB2_SoftwareNomina',
     period: 'Apr – Jun 2025',
-    images: gallery('payroll'),
   },
 ]

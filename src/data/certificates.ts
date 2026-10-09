@@ -2,7 +2,7 @@ import { asset } from './site'
 
 export interface Certificate {
   title: string
-  /** Who issued it. Rendered as chips under the card. */
+  /** Who issued it. Rendered as tags under the thumbnail. */
   issuers: string[]
   year: string
   /**

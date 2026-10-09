@@ -9,16 +9,18 @@ deployed as a static site to GitHub Pages.
 
 A single scrolling page, navigated by a floating dock instead of a top bar:
 
-- **Home** – introduction, links and CV download
-- **01 About** – background, the technologies I work with and my areas of focus
+- **Home** – portrait, introduction, links and CV download
+- **01 About** – background, an at-a-glance panel, the technologies I work with and my areas of focus
 - **02 Experience** – a timeline of studies, competitions and teaching
-- **03 Projects** – expandable cards with a rotating gallery per project
-- **04 Certificates** – certificates and badges, each linking to the original document
+- **03 Projects** – one featured project plus expandable cards; screenshots rotate when a project
+  has them, otherwise the card shows a cover built from the repo and its stack
+- **04 Certificates** – certificate cards, each linking to the original document or its
+  verification page
 - **05 Contact** – email and profiles
 
 ## Stack
 
-React 19, TypeScript, Vite, Tailwind CSS 4, Motion, lucide-react. The floating dock, expandable
+React 19, TypeScript, Vite, Tailwind CSS 4, Motion, lucide-react, Geist and Geist Mono. The floating dock, expandable
 cards and loaders are ports of [Aceternity UI](https://ui.aceternity.com) components, restyled for
 this site.
 
@@ -39,11 +41,12 @@ Page content is data, not markup: every entry lives in `src/data/`, and the comp
 
 ```
 src/
-  data/         site links, skills, focus areas, experience, projects, certificates
+  data/         site links, quick facts, skills, focus areas, experience, projects, certificates
   sections/     one file per numbered section
   components/   layout/ (shell, container, section) · ui/ · common/
   lib/          class helper and hooks
-public/         cv.pdf, profile.png, projects/<slug>/, certificates/
+  assets/       projects/<slug>/ – drop screenshots here and they appear on that project's card
+public/         cv.pdf, profile.png, certificates/
 ```
 
 Files under `public/` are published with the site, so any document added there must be free of

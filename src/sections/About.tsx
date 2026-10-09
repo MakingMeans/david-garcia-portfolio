@@ -1,12 +1,12 @@
-import { Avatar } from '../components/ui/avatar'
 import { Badge } from '../components/ui/badge'
+import { Card } from '../components/ui/card'
 import { Section } from '../components/layout/section'
 import { BentoCard } from '../components/ui/bento-card'
 import { Reveal } from '../components/common/reveal'
 import { Highlight } from '../components/common/highlight'
 import { skills } from '../data/skills'
 import { focusAreas } from '../data/focus-areas'
-import { asset } from '../data/site'
+import { quickFacts } from '../data/quick-facts'
 
 function About() {
   return (
@@ -16,49 +16,47 @@ function About() {
       title="About Me"
       description="A backend-focused engineer who values clean architecture, deliberate systems and strong fundamentals."
     >
-      <div className="grid gap-12 lg:grid-cols-[1fr_300px] lg:items-start">
+      <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
         <Reveal delay={0.08}>
           <div className="space-y-8">
-            <div className="space-y-6 text-justify text-slate-300 hyphens-auto">
+            <div className="max-w-2xl space-y-5 leading-7 text-slate-300">
               <p>
-                I am David Santiago García Preciado, a{' '}
-                <Highlight>Systems Engineering</Highlight> student at{' '}
-                <Highlight>Universidad El Bosque</Highlight> in Bogotá, focused on{' '}
-                <Highlight>full-stack development</Highlight>: <Highlight>REST APIs</Highlight>, web
-                applications and <Highlight>relational databases</Highlight>.
+                I am David Santiago García Preciado, a <Highlight>Systems Engineering</Highlight>{' '}
+                student at Universidad El Bosque in Bogotá, focused on{' '}
+                <Highlight>full-stack development</Highlight>: REST APIs, web applications and
+                relational databases.
               </p>
               <p>
-                I have worked with <Highlight>Spring Boot</Highlight>, <Highlight>Flask</Highlight>,{' '}
-                <Highlight>React</Highlight>, <Highlight>PHP</Highlight>,{' '}
-                <Highlight>Python</Highlight>, <Highlight>Java</Highlight> and{' '}
-                <Highlight>SQL</Highlight>, building academic and personal projects published on
-                GitHub. What I care about is logical thinking,{' '}
-                <Highlight>complex problem solving</Highlight> and shipping clean, scalable code with
-                good engineering practices.
+                I have worked with Spring Boot, Flask, React, PHP, Python, Java and SQL, building
+                academic and personal projects published on GitHub. What I care about is logical
+                thinking, <Highlight>complex problem solving</Highlight> and shipping clean, scalable
+                code with good engineering practices.
               </p>
             </div>
 
             <div className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
-                Technologies I work with
-              </p>
+              <p className="font-mono text-xs text-slate-500">Technologies I work with</p>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill) => (
-                  <Badge key={skill} variant="accent">
-                    {skill}
-                  </Badge>
+                  <Badge key={skill}>{skill}</Badge>
                 ))}
               </div>
             </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <Avatar
-            src={asset('profile.png')}
-            alt="David García portrait"
-            className="mx-auto aspect-[896/1107] w-full max-w-xs lg:mx-0 lg:max-w-none"
-          />
+        <Reveal delay={0.16}>
+          <Card>
+            <p className="font-mono text-xs text-slate-500">At a glance</p>
+            <dl className="mt-4 space-y-3">
+              {quickFacts.map((fact) => (
+                <div key={fact.label} className="grid grid-cols-[6.5rem_1fr] gap-3 text-sm">
+                  <dt className="text-slate-500">{fact.label}</dt>
+                  <dd className="text-slate-200">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Card>
         </Reveal>
       </div>
 
