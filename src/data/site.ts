@@ -8,6 +8,8 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/david-garcia-dev-sistemas/',
   // Deep link to the "Projects" block of the LinkedIn profile.
   linkedinProjects: 'https://www.linkedin.com/in/david-garcia-dev-sistemas/details/projects/',
+  codeforcesHandle: 'MakingMeans',
+  codeforces: 'https://codeforces.com/profile/MakingMeans',
 } as const
 
 export const mailto = `mailto:${site.email}`

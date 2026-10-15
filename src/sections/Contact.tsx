@@ -2,10 +2,14 @@ import { FileText, Github, Linkedin } from 'lucide-react'
 import { Card } from '../components/ui/card'
 import { Section } from '../components/layout/section'
 import { SocialLink } from '../components/common/social-link'
+import { CodeforcesIcon } from '../components/common/codeforces-icon'
 import { Reveal } from '../components/common/reveal'
 import { asset, mailto, site } from '../data/site'
+import { useCodeforcesClick } from '../lib/codeforces-modal'
 
 function Contact() {
+  const openCodeforces = useCodeforcesClick()
+
   return (
     <Section
       id="contact"
@@ -34,6 +38,12 @@ function Contact() {
             <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">
               <SocialLink href={site.github} label="GitHub" icon={<Github className="h-4 w-4" />} />
               <SocialLink href={site.linkedin} label="LinkedIn" icon={<Linkedin className="h-4 w-4" />} />
+              <SocialLink
+                href={site.codeforces}
+                label="Codeforces"
+                icon={<CodeforcesIcon className="h-4 w-4" />}
+                onClick={openCodeforces}
+              />
               <SocialLink href={asset('cv.pdf')} label="CV" icon={<FileText className="h-4 w-4" />} />
             </div>
           </div>

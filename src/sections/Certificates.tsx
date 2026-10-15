@@ -5,6 +5,12 @@ import { ImageWithLoader } from '../components/ui/image-with-loader'
 import { Reveal } from '../components/common/reveal'
 import { certificates, type Certificate } from '../data/certificates'
 
+/** "Oct 2026". Built from the parts so the date never shifts with the visitor's time zone. */
+function formatIssued(issued: string) {
+  const [year, month] = issued.split('-').map(Number)
+  return new Date(year, month - 1).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+}
+
 /** Links out (and lifts on hover) when the entry has a URL; stays a still card when it does not. */
 function CardShell({ certificate, children }: { certificate: Certificate; children: ReactNode }) {
   const className = 'flex h-full flex-col gap-4 rounded-2xl bg-slate-900/50 p-5 text-left'
@@ -66,7 +72,9 @@ function Certificates() {
             <CardShell certificate={certificate}>
               <div className="flex items-start justify-between gap-3">
                 <Award className="h-6 w-6 shrink-0 text-blue-400" />
-                <span className="font-mono text-sm text-slate-500">{certificate.year}</span>
+                <time dateTime={certificate.issued} className="font-mono text-sm text-slate-500">
+                  {formatIssued(certificate.issued)}
+                </time>
               </div>
 
               <h3 className="text-base font-semibold leading-6 text-white">{certificate.title}</h3>

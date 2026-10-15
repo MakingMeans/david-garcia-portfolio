@@ -4,7 +4,7 @@
  * currently in view can be highlighted.
  */
 import { Fragment, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 import {
   AnimatePresence,
   motion,
@@ -24,6 +24,8 @@ export interface FloatingDockItem {
   external?: boolean
   /** Renders a hairline separator before this item. */
   startsGroup?: boolean
+  /** Runs before navigation; call `preventDefault` to keep the visitor on the page. */
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void
 }
 
 interface FloatingDockProps {
@@ -144,6 +146,7 @@ function IconContainer({
       ref={ref}
       href={item.href}
       {...linkProps(item)}
+      onClick={item.onClick}
       aria-label={item.title}
       aria-current={active ? 'true' : undefined}
       onMouseEnter={() => onHoverChange(true)}
@@ -210,7 +213,10 @@ function FloatingDockMobile({
                 key={item.href}
                 href={item.href}
                 {...linkProps(item)}
-                onClick={() => setOpen(false)}
+                onClick={(event) => {
+                  setOpen(false)
+                  item.onClick?.(event)
+                }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10, transition: { delay: index * 0.03 } }}

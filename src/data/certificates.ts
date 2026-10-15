@@ -4,7 +4,8 @@ export interface Certificate {
   title: string
   /** Who issued it. Rendered as tags under the thumbnail. */
   issuers: string[]
-  year: string
+  /** Issue date as on the certificate, `YYYY-MM-DD`; the card shows month and year. */
+  issued: string
   /**
    * Thumbnail under public/certificates. Leave it out and the card falls back
    * to a neutral tile, so an entry without artwork still looks deliberate.
@@ -17,7 +18,7 @@ export interface Certificate {
 }
 
 /**
- * Newest first. To add one: drop the PDF and a thumbnail in public/certificates
+ * Newest first, by issue date. To add one: drop the PDF and a thumbnail in public/certificates
  * and add an object here – nothing else needs touching.
  *
  * PDFs served from public/ are published with the site, so anything containing
@@ -25,39 +26,47 @@ export interface Certificate {
  */
 export const certificates: Certificate[] = [
   {
+    title: 'Claude Code 101',
+    issuers: ['Anthropic', 'Claude Academy'],
+    issued: '2026-10-09',
+    image: asset('certificates/claude-code-101.webp'),
+    url: 'https://academy.claude.com/verify/b3c336c40a6b471fc30ba554a766455e',
+    linkLabel: 'Verify on Claude Academy',
+  },
+  {
     title: '33rd place · ICPC Colombia 2026, XL Maratón Nacional ACIS/REDIS',
     issuers: ['ICPC Foundation', 'ACIS/REDIS'],
-    year: '2026',
+    issued: '2026-10-03',
     image: asset('certificates/icpc-colombia-2026.webp'),
     url: asset('certificates/icpc-colombia-2026.pdf'),
   },
   {
     title: 'Google Cloud Computing Foundations Certificate',
     issuers: ['Google', 'Credly'],
-    year: '2026',
+    issued: '2026-05-11',
     image: asset('certificates/google-cloud-foundations.png'),
     url: 'https://www.credly.com/badges/b48161cb-ef72-4ea1-95d1-b44c15cd62f4/public_url',
     linkLabel: 'Verify on Credly',
   },
   {
+    title: 'Peer Tutor, Desarrollo de Sistemas de Información II',
+    issuers: ['Universidad El Bosque', 'DIGINEXA'],
+    issued: '2025-12-05',
+    image: asset('certificates/tutor-el-bosque-2025.webp'),
+    url: asset('certificates/tutor-el-bosque-2025.pdf'),
+  },
+  {
     title: 'EF SET English Certificate · C2 Proficient (71/100)',
     issuers: ['EF SET'],
-    year: '2025',
+    issued: '2025-12-02',
     image: asset('certificates/ef-set-english-2025.webp'),
     url: 'https://cert.efset.org/xACaaW',
     linkLabel: 'Verify on EF SET',
   },
   {
-    title: 'Peer Tutor, Desarrollo de Sistemas de Información II',
-    issuers: ['Universidad El Bosque', 'DIGINEXA'],
-    year: '2025',
-    image: asset('certificates/tutor-el-bosque-2025.webp'),
-    url: asset('certificates/tutor-el-bosque-2025.pdf'),
-  },
-  {
     title: '51st place · ICPC Colombia 2025, XXXIX Maratón Nacional ACIS/REDIS',
     issuers: ['ICPC Foundation', 'ACIS/REDIS'],
-    year: '2025',
+    issued: '2025-10-18',
     image: asset('certificates/icpc-colombia-2025.webp'),
     url: asset('certificates/icpc-colombia-2025.pdf'),
   },

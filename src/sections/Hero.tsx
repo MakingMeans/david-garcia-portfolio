@@ -2,16 +2,20 @@ import { Github, Linkedin, Mail } from 'lucide-react'
 import { Container } from '../components/layout/container'
 import { Reveal } from '../components/common/reveal'
 import { Highlight } from '../components/common/highlight'
+import { CodeforcesIcon } from '../components/common/codeforces-icon'
 import { Avatar } from '../components/ui/avatar'
 import { asset, mailto, site } from '../data/site'
-
-const socials = [
-  { href: site.github, label: 'GitHub', icon: Github, external: true },
-  { href: site.linkedin, label: 'LinkedIn', icon: Linkedin, external: true },
-  { href: mailto, label: 'Email', icon: Mail, external: false },
-]
+import { useCodeforcesClick } from '../lib/codeforces-modal'
 
 function Hero() {
+  const openCodeforces = useCodeforcesClick()
+  const socials = [
+    { href: site.github, label: 'GitHub', icon: Github, external: true },
+    { href: site.linkedin, label: 'LinkedIn', icon: Linkedin, external: true },
+    { href: site.codeforces, label: 'Codeforces', icon: CodeforcesIcon, external: true, onClick: openCodeforces },
+    { href: mailto, label: 'Email', icon: Mail, external: false },
+  ]
+
   return (
     // A band, not a screen: it sits flush against the top of the page, spans the
     // full width and takes only the height its content needs.
@@ -69,11 +73,12 @@ function Hero() {
 
         <Reveal delay={0.32}>
           <div className="flex items-center gap-1">
-            {socials.map(({ href, label, icon: Icon, external }) => (
+            {socials.map(({ href, label, icon: Icon, external, onClick }) => (
               <a
                 key={label}
                 href={href}
                 {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                onClick={onClick}
                 aria-label={label}
                 title={label}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-400 transition hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"

@@ -1,6 +1,7 @@
 import { PageShell } from './components/layout/page-shell'
 import { BootScreen } from './components/boot-screen'
 import { SiteDock } from './components/site-dock'
+import { CodeforcesModalProvider } from './components/codeforces/codeforces-modal'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Experience from './sections/Experience'
@@ -12,17 +13,19 @@ function App() {
   return (
     <>
       <BootScreen />
-      <PageShell>
-        <main>
-          <Hero />
-          <About />
-          <Experience />
-          <Projects />
-          <Certificates />
-          <Contact />
-        </main>
-        <SiteDock />
-      </PageShell>
+      <CodeforcesModalProvider>
+        <PageShell>
+          <main>
+            <Hero />
+            <About />
+            <Experience />
+            <Projects />
+            <Certificates />
+            <Contact />
+          </main>
+          <SiteDock />
+        </PageShell>
+      </CodeforcesModalProvider>
     </>
   )
 }
